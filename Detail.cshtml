@@ -1,0 +1,222 @@
+﻿@using Syncfusion.EJ2
+@using Syncfusion.EJ2.Notifications;
+@model NavesPortalforWebWithCoreMvc.Models.TNAV_JOB_MANAGEMENT
+
+@{
+    ViewBag.PageTitle = "PMS > Porject ID Management";
+    ViewBag.PlatformName = "PMS";
+    ViewBag.MenuName = "JOB ID Management";
+    ViewBag.FunctionName = "Detail";
+}
+
+@section ContentsSection{
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="ps-2 pageContentTitle">
+            <h3>@ViewBag.MenuName</h3>
+        </div>
+        <div></div>
+    </div>
+
+    <form id="frmJobId" asp-controller="PmsJobIdManagement" asp-action="Create" method="post">
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Job ID</label>
+            <div class="col-sm-4">
+                <h4>
+                    @Model.JOB_ID
+                </h4>
+                @*<ejs-textbox type="text" ejs-for="JOB_ID" cssClass="e-outline" disabled></ejs-textbox>*@
+                <ejs-textbox type="text" id="txtJobId" ejs-for="JOB_ID" cssClass="d-none"></ejs-textbox>
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">NSN ID</label>
+            <div class="col-sm-4">
+                <h4>
+                    @Model.NSN_IDXNavigation.NSN_ID
+                </h4>
+                @*<ejs-textbox type="text" ejs-for="NSN_IDXNavigation.NSN_ID" cssClass="e-outline" disabled></ejs-textbox>*@
+            </div>
+            <div class="col-sm-4">
+                @*<ejs-autocomplete id="acNsnId" dataSource="@ViewBag.DataSourece" placeholder="Search NSN ID...ex)22NVS01" autofill="true" filterType="Contains"
+                              cssClass="inputable"
+                              highlight="true"
+                              suggestionCount="20"
+                              minLength="2"
+                              popupHeight="300px"
+                              popupWidth="1000px"
+                              required
+                              headerTemplate="@Html.Raw("<div class=\"row m-2 p-1 fs-5 border-bottom border-2 bg-create-title\"><div class=\"col-1\">NSN ID</div><div class=\"col-2\">Vessel Name</div><div class=\"col-2\">HULL NO</div><div class=\"col\">YARD/MAKER</div></div>")"
+                              itemTemplate="@Html.Raw("<div class=\"row border-bottom border-1\"><div class=\"col-1\">${NSN_ID}</div><div class=\"col-2\">${VESSEL_NAME_KR}</div><div class=\"col-2\">${HULL_NO}</div><div class=\"col\">${YARD_MAKER_NAME}</div></div>")"
+                              change="OnAutoComplateChange">
+                    <e-autocomplete-fields value="NSN_ID"></e-autocomplete-fields>
+                </ejs-autocomplete>
+                <input type="text" asp-for="NSN_IDX" class="d-none" />*@
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Client</label>
+            <div class="col-sm-4">
+                <ejs-textbox type="text" readonly id="txtClientText" value="@ViewBag.ClientName" cssClass="e-outline text-left"></ejs-textbox>
+                <input type="text" asp-for="CLIENT" id="txtClientIdx" class="d-none" />
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Vessel Type</label>
+            <div class="col-sm-4">
+                <ejs-textbox type="text" readonly id="txtShipTypeText" value="@ViewBag.VesselType" cssClass="e-outline text-left"></ejs-textbox>
+                <input type="text" id="txtShipTypeIdx" asp-for="VESSEL_TYPE" class="d-none" />
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Job Category</label>
+            <div class="col-sm-8">
+                <ejs-radiobutton id="rdoDesign" ejs-for=JOB_CATEGORY label="Design" name="JobCategory" value="1" cssClass="pe-1"></ejs-radiobutton>
+                <ejs-radiobutton id="rdoVesselNew" ejs-for="JOB_CATEGORY" label="Vessel(New Building)" name="JobCategory" value="2" cssClass="pe-1"></ejs-radiobutton>
+                <ejs-radiobutton id="rdoVesselExist" ejs-for="JOB_CATEGORY" label="Vessel(Existence)" name="JobCategory" value="3" cssClass="pe-1"></ejs-radiobutton>
+                <ejs-radiobutton id="rdoFacility" ejs-for="JOB_CATEGORY" label="Facility" name="JobCategory" value="4" cssClass="pe-1"></ejs-radiobutton>
+                <ejs-radiobutton id="rdoEquipment" ejs-for="JOB_CATEGORY" label="Equipment" name="JobCategory" value="5" cssClass="pe-1"></ejs-radiobutton>
+                <ejs-radiobutton id="rdoEngineering" ejs-for="JOB_CATEGORY" label="Engineering" name="JobCategory" value="6" cssClass="pe-1"></ejs-radiobutton>
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Description</label>
+            <div class="col-sm-4">
+                <ejs-textbox type="text" ejs-for="VESSEL_NAME" readonly id="txtShipName" cssClass="e-outline text-left" placeholder="Vessel, Facility, Equipment, Name, Etc., ..."></ejs-textbox>
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Hull No, SN, Etc.</label>
+            <div class="col-sm-4">
+                <ejs-textbox type="text" ejs-for="HULL_NO" readonly id="txtHullNo" cssClass="e-outline text-left" placeholder="Hull No, SN, Etc..."></ejs-textbox>
+            </div>
+        </div>
+
+        <div class="align-items-center mx-0 row bprder border-bottom">
+            <label class="col-sm-2 col-form-label text-end fw-bolder bg-create-title">Yard/Maker</label>
+            <div class="col-sm-4">
+                <ejs-textbox type="text" readonly id="txtYardAndMakerName" ejs-for="YARD_MAKER_NAME" cssClass="e-outline text-left" placeholder="Yard/Maker"></ejs-textbox>
+                <ejs-textbox type="text" id="txtYardAndMaker" ejs-for="YARD_MAKER" cssClass="d-none"></ejs-textbox>
+            </div>
+        </div>
+
+        <div class="pt-2 mx-0">
+            <div class="float-start row g-0">
+                <div class="col-auto pe-2">
+                    <a id="btnShowLog" class="btn btn-success btn-medium rounded-pill waves-effect waves-light" style="width:120px;">Show Log</a>
+                </div>
+                <div class="col-auto pe-2">
+                </div>
+                <div class="col-auto">
+                </div>
+            </div>
+            <div class="float-end row g-0">
+                <div class="col-auto pe-2">
+                </div>
+                <div class="col-auto pe-2">
+                </div>
+                <div class="col-auto">
+                <a asp-controller="PmsJobIdManagement" asp-action="Index" id="btnList" class="btn btn-primary btn-medium rounded-pill waves-effect waves-light">LIST</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function OnAutoComplateChange(args) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("GetTNAV_NSN")",
+                    data: { "nsnId": args.value },
+                    success: function (response) {
+                        $("#txtNsnIdx").val(response.data.NSN_IDX)
+
+                        $("#txtClientIdx").val(response.data.CLIENT_IDX);
+                        $("#txtClientText").val(response.data.CLIENT_NAME);
+
+                        $("#txtShipTypeIdx").val(response.data.VESSEL_TYPE_IDX);
+                        $("#txtShipTypeText").val(response.data.VESSEL_TYPE);
+
+                        $("#txtShipName").val(response.data.VESSEL_NAME_KR);
+                        $("#txtHullNo").val(response.data.HULL_NO);
+
+                        $("#txtYardAndMakerName").val(response.data.YARD_MAKER_NAME);
+                        $("#txtYardAndMaker").val(response.data.YARD_MAKER);
+
+                        response.category.forEach(function (cate) {
+                            switch (cate) {
+                                case "1":
+                                    $("#rdoDesign").attr("disabled", true);
+                                    break;
+                                case "2":
+                                    $("#rdoVesselNew").attr("disabled", true);
+                                    break;
+                                case "3":
+                                    $("#rdoVesselExist").attr("disabled", true);
+                                    break;
+                                case "4":
+                                    $("#rdoFacility").attr("disabled", true);
+                                    break;
+                                case "5":
+                                    $("#rdoEquipment").attr("disabled", true);
+                                    break;
+                                case "6":
+                                    $("#rdoEngineering").attr("disabled", true);
+                                    break;
+                            }
+                        });
+
+
+                    },
+                    error: function (req, status, error) {
+                    }
+                });
+        }
+
+        //$("#btnDelete").click(function () {
+        //    if (confirm("삭제하시겠습니까?")) {
+        //        $.ajax({
+        //            url: "/PmsJobIdManagement/Delete",
+        //            contentType: "application/x-www-form-urlencoded",
+        //            dataType: "json",
+        //            type: "post",
+        //            data: $("#frmJobId").serialize(),
+        //            success: function (data) {
+        //                if ("OK" == data) {
+        //                    window.location.href = "/PmsJobIdManagement";
+        //                } else {
+        //                    alert(data);
+        //                }
+        //            },
+        //            error: function (data) {
+        //                alert(data);
+        //            }
+        //        });
+        //    }
+        //});
+    </script>
+}
+    @section Scripts{
+    <script>
+        // Show Log Button
+        $("#btnShowLog").click(function () {
+            var W = (screen.availWidth * 0.5);
+            var H = 750;
+
+            var popupX = (screen.availWidth / 2) - (W / 2);
+            var popupY = (screen.availHeight / 2) - (H / 2);
+
+            var opt = "status=no,width=" + W + "px, height=" + H + "px, left=" + popupX + ", top=" + popupY + ",scrollbars=yes";
+            var popup = window.open('@Url.Action("ShowLog", "Common", new{id = Model.JOB_IDX, platform = "PMS"})', 'LogList', opt);
+
+            popup.opener = window;
+            popup.focus();
+        });
+    </script>
+}   
